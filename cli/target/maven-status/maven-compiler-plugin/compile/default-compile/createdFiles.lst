@@ -1,0 +1,7 @@
+com/example/cli/commands/GetItemCommand.class
+com/example/cli/commands/DeleteItemCommand.class
+com/example/cli/models/Item.class
+com/example/cli/commands/ListItemsCommand.class
+com/example/cli/commands/CreateItemCommand.class
+com/example/cli/utils/HttpClientUtil.class
+com/example/cli/CrudCLI.class
