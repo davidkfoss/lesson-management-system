@@ -10,9 +10,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void addUser(String name, String role) {
-        userRepository.addUser(new User(name, role));
-        System.out.println("User registered: " + name + " as " + role);
+    public void addUser(User user) {
+        userRepository.addUser(user);
+        System.out.println("User registered: " + user.getName() + " as " + user.getRole());
     }
 
     public void viewUsers() {

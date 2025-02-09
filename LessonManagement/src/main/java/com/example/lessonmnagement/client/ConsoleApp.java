@@ -6,13 +6,15 @@ import com.example.lessonmanagement.model.User;
 import com.example.lessonmanagement.model.Lesson;
 import com.example.lessonmanagement.repository.UserRepository;
 import com.example.lessonmanagement.repository.LessonRepository;
+import com.example.lessonmanagement.factory.UserFactory;
+import com.example.lessonmanagement.factory.LessonFactory;
 
 import java.util.Scanner;
 
 public class ConsoleApp {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final UserRepository userRepository = new UserRepository();
-    private static final LessonRepository lessonRepository = new LessonRepository();
+    private static final UserRepository userRepository = UserRepository.getInstance();
+    private static final LessonRepository lessonRepository = LessonRepository.getInstance();
     private static final UserService userService = new UserService(userRepository);
     private static final LessonService lessonService = new LessonService(lessonRepository);
 
@@ -56,7 +58,8 @@ public class ConsoleApp {
         String name = scanner.nextLine();
         System.out.print("Are you a tutor or a student? (tutor/student): ");
         String role = scanner.nextLine().toLowerCase();
-        userService.addUser(name, role);
+        User user = UserFactory.createUser(name, role);
+        userService.addUser(user);
     }
 
     private static void createLesson() {
@@ -71,6 +74,7 @@ public class ConsoleApp {
         System.out.print("Enter lesson price: ");
         double price = scanner.nextDouble();
         scanner.nextLine();
-        lessonService.addLesson(tutorName, title, price);
+        Lesson lesson = LessonFactory.createLesson(tutorName, title, price);
+        lessonService.addLesson(lesson);
     }
 }

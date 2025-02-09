@@ -10,9 +10,9 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public void addLesson(String tutorName, String title, double price) {
-        lessonRepository.addLesson(new Lesson(tutorName, title, price));
-        System.out.println("Lesson created: " + title + " by " + tutorName);
+    public void addLesson(Lesson lesson) {
+        lessonRepository.addLesson(lesson);
+        System.out.println("Lesson created: " + lesson.getTitle() + " by " + lesson.getTutorName());
     }
 
     public void viewLessons() {
