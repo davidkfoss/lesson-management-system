@@ -59,18 +59,18 @@ To ensure a scalable and maintainable architecture, we applied the following des
 
 ### 1. Singleton Pattern
 
-Applied to UserRepository and LessonRepository to ensure only one instance of each repository exists.
+- Applied to UserRepository and LessonRepository to ensure only one instance of each repository exists.
 
-This prevents data inconsistency and reduces memory usage.
+- This prevents data inconsistency and reduces memory usage.
 
 ### 2. Factory Pattern
 
-UserFactory and LessonFactory were introduced to centralize object creation.
+- UserFactory and LessonFactory were introduced to centralize object creation.
 
-This encapsulates object instantiation, making the system easier to modify and extend.
+- This encapsulates object instantiation, making the system easier to modify and extend.
 
 ### 3. Repository Pattern
 
-UserRepository and LessonRepository abstract away data storage, following the separation of concerns principle.
+- UserRepository and LessonRepository abstract away data storage, following the separation of concerns principle.
 
-This allows us to easily replace the in-memory storage with a database in future iterations.
+- This allows us to easily replace the in-memory storage with a database in future iterations.

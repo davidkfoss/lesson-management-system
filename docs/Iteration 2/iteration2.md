@@ -68,12 +68,12 @@ We continue using best software practices to ensure scalability and maintainabil
 
 ### 1. Singleton Pattern
 
-Ensures that UserRepository, LessonRepository, and ReviewRepository each have only one instance.
+- Ensures that UserRepository, LessonRepository, and ReviewRepository each have only one instance.
 
 ### 2. Factory Pattern
 
-UserFactory, LessonFactory, and ReviewFactory centralize object creation.
+- UserFactory, LessonFactory, and ReviewFactory centralize object creation.
 
 ### 3. Repository Pattern
 
-UserRepository, LessonRepository, and ReviewRepository store data in-memory, preparing for a potential database integration in future iterations.
+- UserRepository, LessonRepository, and ReviewRepository store data in-memory, preparing for a potential database integration in future iterations.
