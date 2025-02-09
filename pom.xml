@@ -6,7 +6,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>backend</module>
-        <module>cli</module>
+        <module>lessonmanagement</module>
     </modules>
 </project>

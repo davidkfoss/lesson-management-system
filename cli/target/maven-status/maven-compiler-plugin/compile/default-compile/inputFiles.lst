@@ -1,7 +1,0 @@
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/CrudCLI.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/commands/CreateItemCommand.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/commands/DeleteItemCommand.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/commands/GetItemCommand.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/commands/ListItemsCommand.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/models/Item.java
-/Users/davidfoss/SWE-CT2025/lesson-management-system/cli/src/main/java/com/example/cli/utils/HttpClientUtil.java

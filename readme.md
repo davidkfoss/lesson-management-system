@@ -1,9 +1,9 @@
 ## How to Run
 
-### Step 1: Start the Backend
+### Step 1: Start the lessonmanagement
 
 ```bash
-cd backend
+cd lessonmanagement
 mvn spring-boot:run
 ```
 
@@ -47,4 +47,4 @@ java -jar cli/target/cli-1.0-SNAPSHOT.jar delete -i 1
 ## Info
 
 - Currently using H2 in-memory database only.
-- The backend is running on port 8080.
+- The lessonmanagement is running on port 8080.
