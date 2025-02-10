@@ -7,6 +7,10 @@ import com.example.lessonmanagement.repository.LessonRepository;
 import com.example.lessonmanagement.repository.UserRepository;
 import com.example.lessonmanagement.factory.LessonFactory;
 import com.example.lessonmanagement.service.UserService;
+import com.example.lessonmanagement.observer.CustomizationObserver;
+import com.example.lessonmanagement.observer.TutorNotificationService;
+import com.example.lessonmanagement.repository.CustomizationRequestRepository;
+import com.example.lessonmanagement.repository.NotificationRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +20,13 @@ public class ConsoleApp {
     private static final Scanner scanner = new Scanner(System.in);
     private static final LessonService lessonService = new LessonService(LessonRepository.getInstance());
     private static final UserService userService = new UserService(UserRepository.getInstance());
+    private static final CustomizationRequestRepository customizationRequestRepository = CustomizationRequestRepository.getInstance();
+    private static final TutorNotificationService tutorNotificationService = new TutorNotificationService();
+    private static final NotificationRepository notificationRepository = NotificationRepository.getInstance();
+
+    static {
+        customizationRequestRepository.addObserver(tutorNotificationService);
+    }
 
     public static void main(String[] args) {
         while (true) {
@@ -102,6 +113,7 @@ public class ConsoleApp {
             System.out.println("3. Manage Lesson Packages");
             System.out.println("4. Manage Customization Requests");
             System.out.println("5. View signed up students");
+            System.out.println("6. View Notifications");
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter choice: ");
 
@@ -123,6 +135,9 @@ public class ConsoleApp {
                     break;
                 case 5:
                     viewSignedUpStudents();
+                    break;
+                case 6:
+                    viewNotifications();
                     break;
                 case 0:
                     return;
@@ -230,4 +245,19 @@ public class ConsoleApp {
         String tutorName = scanner.nextLine();
         lessonService.viewSignedUpStudents(tutorName);
     }
+
+    private static void viewNotifications() {
+        System.out.print("Enter your tutor name: ");
+        String tutorName = scanner.nextLine();
+        List<String> notifications = notificationRepository.getNotificationsForTutor(tutorName);
+        if (notifications.isEmpty()) {
+            System.out.println("No new notifications.");
+        } else {
+            System.out.println("Your Notifications:");
+            notifications.forEach(System.out::println);
+            notificationRepository.clearNotifications(tutorName);
+            System.out.println("Notifications cleared.");
+        }
+    }
+
 }
