@@ -24,4 +24,10 @@ public class LessonRepository {
     public List<Lesson> getLessons() {
         return lessons;
     }
+
+    public List<Lesson> getLessonsByTutor(String tutorName) {
+        return lessons.stream()
+                .filter(l -> l.getTutorName().equals(tutorName))
+                .collect(java.util.stream.Collectors.toList());
+    }
 }

@@ -2,6 +2,7 @@ package com.example.lessonmanagement.service;
 
 import com.example.lessonmanagement.model.User;
 import com.example.lessonmanagement.repository.UserRepository;
+import java.util.List;
 
 public class UserService {
     private final UserRepository userRepository;
@@ -21,5 +22,9 @@ public class UserService {
 
     public boolean isTutor(String name) {
         return userRepository.getUsers().stream().anyMatch(user -> user.getName().equalsIgnoreCase(name) && user.getRole().equals("tutor"));
+    }
+
+    public List<User> getTutorsByStudyField(String studyField) {
+        return userRepository.getTutorsByStudyField(studyField);
     }
 }

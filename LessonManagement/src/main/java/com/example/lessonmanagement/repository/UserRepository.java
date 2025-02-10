@@ -3,6 +3,7 @@ package com.example.lessonmanagement.repository;
 import com.example.lessonmanagement.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRepository {
     private static UserRepository instance;
@@ -23,5 +24,11 @@ public class UserRepository {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public List<User> getTutorsByStudyField(String studyField) {
+        return users.stream()
+                .filter(user -> "Tutor".equalsIgnoreCase(user.getRole()) && user.getStudyFields().contains(studyField))
+                .collect(Collectors.toList());
     }
 }

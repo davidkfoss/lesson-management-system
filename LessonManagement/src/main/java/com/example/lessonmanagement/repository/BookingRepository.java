@@ -32,4 +32,16 @@ public class BookingRepository {
     public List<Booking> getBookings() {
         return bookings;
     }
+
+    public List<Booking> getBookingsByStudent(String studentName) {
+        return bookings.stream()
+                .filter(booking -> booking.getStudentName().equals(studentName))
+                .toList();
+    }
+
+    public List<Booking> getBookingsByTutor(String tutorName) {
+        return bookings.stream()
+                .filter(booking -> booking.getTutorName().equals(tutorName))
+                .toList();
+    }
 }
