@@ -170,19 +170,7 @@ public class ConsoleApp {
     }
 
     private static void createLesson() {
-        System.out.print("Enter tutor name: ");
-        String tutorName = scanner.nextLine();
-        if (!userService.isTutor(tutorName)) {
-            System.out.println("Only registered tutors can create lessons.");
-            return;
-        }
-        System.out.print("Enter lesson title: ");
-        String title = scanner.nextLine();
-        System.out.print("Enter lesson price: ");
-        double price = scanner.nextDouble();
-        scanner.nextLine();
-        Lesson lesson = LessonFactory.createLesson(tutorName, title, price);
-        lessonService.addLesson(lesson);
+        lessonService.createLesson();
     }
 
     private static void cancelLesson() {

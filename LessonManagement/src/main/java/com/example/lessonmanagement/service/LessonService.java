@@ -8,6 +8,10 @@ import com.example.lessonmanagement.repository.LessonRepository;
 import com.example.lessonmanagement.repository.BookingRepository;
 import com.example.lessonmanagement.repository.LessonPackageRepository;
 import com.example.lessonmanagement.repository.CustomizationRequestRepository;
+import com.example.lessonmanagement.strategy.PricingStrategy;
+import com.example.lessonmanagement.strategy.DiscountPricing;
+import com.example.lessonmanagement.strategy.DynamicDemandPricing;
+import com.example.lessonmanagement.strategy.FlatRatePricing;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,8 +27,49 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public void addLesson(Lesson lesson) {
+    public void createLesson() {
+        System.out.print("Enter tutor name: ");
+        String tutorName = scanner.nextLine();
+        System.out.print("Enter lesson title: ");
+        String title = scanner.nextLine();
+        System.out.print("Enter base price: ");
+        double basePrice = scanner.nextDouble();
+        scanner.nextLine();
+
+        PricingStrategy pricingStrategy = selectPricingStrategy(basePrice);
+        Lesson lesson = new Lesson(tutorName, title, basePrice, pricingStrategy);
         lessonRepository.addLesson(lesson);
+
+        System.out.println("Lesson created successfully with pricing strategy applied!");
+    }
+
+    private PricingStrategy selectPricingStrategy(double basePrice) {
+        System.out.println("Select pricing strategy:");
+        System.out.println("1. Flat Rate Pricing (No changes to price)");
+        System.out.println("2. Discount Pricing (Apply a discount)");
+        System.out.println("3. Dynamic Demand Pricing (Adjust price based on demand factor)");
+        System.out.print("Enter choice: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                return new FlatRatePricing();
+            case 2:
+                System.out.print("Enter discount rate (e.g., 0.1 for 10% discount): ");
+                double discountRate = scanner.nextDouble();
+                scanner.nextLine();
+                return new DiscountPricing(discountRate);
+            case 3:
+                System.out.print("Enter demand factor (e.g., 1.2 for 20% price increase): ");
+                double demandFactor = scanner.nextDouble();
+                scanner.nextLine();
+                return new DynamicDemandPricing(demandFactor);
+            default:
+                System.out.println("Invalid choice. Defaulting to Flat Rate Pricing.");
+                return new FlatRatePricing();
+        }
     }
 
     public void viewLessons() {
@@ -39,7 +84,7 @@ public class LessonService {
         System.out.println("Available lessons:");
         int index = 1;
         for (Lesson lesson : lessonRepository.getLessons()) {
-            System.out.println(index + ". " + lesson.getTitle() + " by " + lesson.getTutorName());
+            System.out.println(index + ". " + lesson.getTitle() + " by " + lesson.getTutorName() + " - Before: " + lesson.getBasePrice() + "€ - Now: " + lesson.getFinalPrice() + "€");
             index++;
         }
 
