@@ -1,6 +1,6 @@
 ## Navigation:
 
-- [Readme](../README.md)
+- [Readme](../readme.md)
 - Ideation phase
   - [Vision document](./Ideation/01%20-%20Vision%20Document-1.pdf)
   - [Use Case Model](./Ideation/02%20-%20Use%20Case%20Model.pdf)
