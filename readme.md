@@ -1,5 +1,7 @@
 [---------------nav---------------](/docs/nav.md)
 
+# Lesson Management System
+
 ## Requirements
 
 Note that [maven](https://maven.apache.org/install.html) is required to run the application.
@@ -72,3 +74,4 @@ mvn exec:java -Dexec.mainClass="com.example.lessonmanagement.client.ConsoleApp"
 ### **Observer Pattern (Notifications for Tutors)**
 
 - [CustomizationObserver.java](LessonManagement/src/main/java/com/example/lessonmanagement/observer/CustomizationObserver.java): Interface for customization request observers, which [TutorNotificationService](LessonManagement/src/main/java/com/example/lessonmanagement/observer/TutorNotificationService.java) implements.
+
