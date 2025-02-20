@@ -41,7 +41,7 @@ public class ConsoleApp {
 
             if (scanner.hasNextInt()) {
                 int mainChoice = scanner.nextInt();
-                scanner.nextLine();  // Pulizia del buffer
+                scanner.nextLine();
 
                 switch (mainChoice) {
                     case 1:
@@ -80,7 +80,7 @@ public class ConsoleApp {
 
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
-                scanner.nextLine();  // Pulisce il buffer
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -108,13 +108,13 @@ public class ConsoleApp {
                         purchaseLessonPackage();
                         break;
                     case 0:
-                        return;  // Torna al menu principale
+                        return;
                     default:
                         System.out.println("Invalid choice, try again.");
                 }
             } else {
                 System.out.println("Invalid input! Please enter a number.");
-                scanner.nextLine();  // Scarta l'input errato per evitare loop infiniti
+                scanner.nextLine();
             }
         }
     }
