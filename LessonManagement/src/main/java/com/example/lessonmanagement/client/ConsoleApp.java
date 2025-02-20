@@ -167,10 +167,9 @@ public class ConsoleApp {
         }
     }
 
-
     private static void registerUser(String role) {
         System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();  // Applica trim all’input utente
         List<String> studyFields = null;
 
         if (role.equalsIgnoreCase("tutor")) {
@@ -180,9 +179,14 @@ public class ConsoleApp {
         }
 
         User user = new User(name, role, studyFields);
-        userService.addUser(user);
-        System.out.println(role + " registered successfully!");
+        boolean isRegistered = userService.addUser(user);  // Ritorna true o false
+
+        if (isRegistered) {
+            System.out.println(role + " registered successfully!");
+        }
     }
+
+
 
     private static void bookLesson() {
         System.out.print("Enter your name: ");

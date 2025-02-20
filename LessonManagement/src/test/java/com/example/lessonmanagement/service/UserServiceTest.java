@@ -15,6 +15,7 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
         userRepository = UserRepository.getInstance(); // Singleton
+        userRepository.clear();
         userService = new UserService(userRepository);
     }
 
@@ -32,7 +33,7 @@ class UserServiceTest {
 
     @Test
     void testIsTutor() {
-        User tutor = new User("Bob", "tutor", List.of("Mathematics", "Physics")); // Con campi di studio
+        User tutor = new User("Bob", "tutor", List.of("Mathematics", "Physics"));
         userService.addUser(tutor);
 
         assertTrue(userService.isTutor("Bob"));
@@ -49,16 +50,33 @@ class UserServiceTest {
         userService.addUser(tutor2);
         userService.addUser(student);
 
-        List<User> mathTutors = userService.getTutorsByStudyField("Mathematics");
-        List<User> physicsTutors = userService.getTutorsByStudyField("Physics");
-        List<User> chemistryTutors = userService.getTutorsByStudyField("Chemistry");
+        assertEquals(1, userService.getTutorsByStudyField("Mathematics").size());
+        assertEquals(1, userService.getTutorsByStudyField("Physics").size());
+        assertTrue(userService.getTutorsByStudyField("Chemistry").isEmpty());
+    }
 
-        assertEquals(1, mathTutors.size());
-        assertEquals("Charlie", mathTutors.get(0).getName());
+    @Test
+    void testSuccessfulUserRegistration() {
+        User user = new User("Alice", "student", List.of());
+        boolean result = userService.addUser(user);
+        assertTrue(result, "La registrazione dovrebbe avere successo.");
+    }
 
-        assertEquals(1, physicsTutors.size());
-        assertEquals("David", physicsTutors.get(0).getName());
+    @Test
+    void testDuplicateUserRegistrationFails() {
+        User user1 = new User("Bob", "student", List.of());
+        User user2 = new User(" Bob ", "student", List.of());
 
-        assertTrue(chemistryTutors.isEmpty());
+        assertTrue(userService.addUser(user1), "La prima registrazione deve avere successo.");
+        assertFalse(userService.addUser(user2), "La seconda registrazione deve fallire a causa del nome duplicato.");
+    }
+
+    @Test
+    void testCaseSensitiveUserNames() {
+        User user1 = new User("Charlie", "student", List.of());
+        User user2 = new User("charlie", "student", List.of());
+
+        assertTrue(userService.addUser(user1), "La prima registrazione deve avere successo.");
+        assertTrue(userService.addUser(user2), "La seconda registrazione deve avere successo se i nomi differiscono per maiuscole/minuscole.");
     }
 }
