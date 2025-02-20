@@ -21,6 +21,10 @@ public class LessonRepository {
         lessons.add(lesson);
     }
 
+    public void clear() {
+        lessons.clear();
+    }
+
     public List<Lesson> getLessons() {
         return lessons;
     }

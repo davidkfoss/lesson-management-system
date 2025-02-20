@@ -18,14 +18,19 @@ import java.util.Scanner;
 
 public class LessonService {
     private final LessonRepository lessonRepository;
-    private final BookingRepository bookingRepository = BookingRepository.getInstance();
+    private final BookingRepository bookingRepository;
     private final LessonPackageRepository lessonPackageRepository = LessonPackageRepository.getInstance();
     private final CustomizationRequestRepository customizationRequestRepository = CustomizationRequestRepository.getInstance();
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    public LessonService(LessonRepository lessonRepository) {
+
+    public LessonService(LessonRepository lessonRepository, BookingRepository bookingRepository, Scanner scanner) {
         this.lessonRepository = lessonRepository;
+        this.bookingRepository = bookingRepository;
+        this.scanner = scanner;
     }
+
+
 
     public void createLesson() {
         System.out.print("Enter tutor name: ");

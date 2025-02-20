@@ -11,6 +11,8 @@ import com.example.lessonmanagement.observer.CustomizationObserver;
 import com.example.lessonmanagement.observer.TutorNotificationService;
 import com.example.lessonmanagement.repository.CustomizationRequestRepository;
 import com.example.lessonmanagement.repository.NotificationRepository;
+import com.example.lessonmanagement.repository.BookingRepository;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.Scanner;
 
 public class ConsoleApp {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final LessonService lessonService = new LessonService(LessonRepository.getInstance());
+    private static final LessonService lessonService = new LessonService(LessonRepository.getInstance(), BookingRepository.getInstance(), new Scanner(System.in));
+
     private static final UserService userService = new UserService(UserRepository.getInstance());
     private static final CustomizationRequestRepository customizationRequestRepository = CustomizationRequestRepository.getInstance();
     private static final TutorNotificationService tutorNotificationService = new TutorNotificationService();
@@ -36,24 +39,30 @@ public class ConsoleApp {
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
-            int mainChoice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                int mainChoice = scanner.nextInt();
+                scanner.nextLine();  // Pulizia del buffer
 
-            switch (mainChoice) {
-                case 1:
-                    studentMenu();
-                    break;
-                case 2:
-                    tutorMenu();
-                    break;
-                case 0:
-                    System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid choice, try again.");
+                switch (mainChoice) {
+                    case 1:
+                        studentMenu();
+                        break;
+                    case 2:
+                        tutorMenu();
+                        break;
+                    case 0:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid choice, try again.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number.");
+                scanner.nextLine();
             }
         }
     }
+
 
     private static void studentMenu() {
         while (true) {
@@ -69,41 +78,47 @@ public class ConsoleApp {
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                scanner.nextLine();  // Pulisce il buffer
 
-            switch (choice) {
-                case 1:
-                    registerUser("student");
-                    break;
-                case 2:
-                    bookLesson();
-                    break;
-                case 3:
-                    cancelLesson();
-                    break;
-                case 4:
-                    viewLessonCalendar();
-                    break;
-                case 5:
-                    requestLessonCustomization();
-                    break;
-                case 6:
-                    viewLessonsByTutor();
-                    break;
-                case 7:
-                    findTutorsByStudyField();
-                    break;
-                case 8:
-                    purchaseLessonPackage();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Invalid choice, try again.");
+                switch (choice) {
+                    case 1:
+                        registerUser("student");
+                        break;
+                    case 2:
+                        bookLesson();
+                        break;
+                    case 3:
+                        cancelLesson();
+                        break;
+                    case 4:
+                        viewLessonCalendar();
+                        break;
+                    case 5:
+                        requestLessonCustomization();
+                        break;
+                    case 6:
+                        viewLessonsByTutor();
+                        break;
+                    case 7:
+                        findTutorsByStudyField();
+                        break;
+                    case 8:
+                        purchaseLessonPackage();
+                        break;
+                    case 0:
+                        return;  // Torna al menu principale
+                    default:
+                        System.out.println("Invalid choice, try again.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number.");
+                scanner.nextLine();  // Scarta l'input errato per evitare loop infiniti
             }
         }
     }
+
 
     private static void tutorMenu() {
         while (true) {
@@ -117,35 +132,41 @@ public class ConsoleApp {
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    registerUser("tutor");
-                    break;
-                case 2:
-                    createLesson();
-                    break;
-                case 3:
-                    manageLessonPackages();
-                    break;
-                case 4:
-                    manageCustomizationRequests();
-                    break;
-                case 5:
-                    viewSignedUpStudents();
-                    break;
-                case 6:
-                    viewNotifications();
-                    break;
-                case 0:
-                    return;
-                default:
-                    System.out.println("Invalid choice, try again.");
+                switch (choice) {
+                    case 1:
+                        registerUser("tutor");
+                        break;
+                    case 2:
+                        createLesson();
+                        break;
+                    case 3:
+                        manageLessonPackages();
+                        break;
+                    case 4:
+                        manageCustomizationRequests();
+                        break;
+                    case 5:
+                        viewSignedUpStudents();
+                        break;
+                    case 6:
+                        viewNotifications();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Invalid option. Please select a valid choice.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number.");
+                scanner.nextLine();
             }
         }
     }
+
 
     private static void registerUser(String role) {
         System.out.print("Enter your name: ");

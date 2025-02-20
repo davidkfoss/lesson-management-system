@@ -17,6 +17,10 @@ public class BookingRepository {
         return instance;
     }
 
+    public void clear() {
+        bookings.clear();
+    }
+
     public void addBooking(Booking booking) {
         bookings.add(booking);
     }

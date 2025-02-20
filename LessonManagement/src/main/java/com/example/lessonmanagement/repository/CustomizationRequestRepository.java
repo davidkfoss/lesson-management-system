@@ -48,4 +48,9 @@ public class CustomizationRequestRepository {
             observer.notifyCustomizationRequest(request.getTutorName(), request.getStudentName(), request.getRequestDetails());
         }
     }
+
+    public void clearRequestsByTutor(String tutorName) {
+        customizationRequests.removeIf(request -> request.getTutorName().equalsIgnoreCase(tutorName));
+    }
+
 }
