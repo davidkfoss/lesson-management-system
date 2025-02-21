@@ -37,9 +37,17 @@ public class LessonService {
         String tutorName = scanner.nextLine();
         System.out.print("Enter lesson title: ");
         String title = scanner.nextLine();
-        System.out.print("Enter base price: ");
-        double basePrice = scanner.nextDouble();
-        scanner.nextLine();
+        double basePrice;
+        do {
+            System.out.print("Enter base price (must be positive): ");
+            String input = scanner.next().replace(",", ".");
+            basePrice = Double.parseDouble(input);
+
+            if (basePrice <= 0) {
+                System.out.println("Invalid price. Please enter a positive value.");
+            }
+        } while (basePrice <= 0);
+        
 
         PricingStrategy pricingStrategy = selectPricingStrategy(basePrice);
         Lesson lesson = new Lesson(tutorName, title, basePrice, pricingStrategy);
@@ -62,14 +70,26 @@ public class LessonService {
             case 1:
                 return new FlatRatePricing();
             case 2:
-                System.out.print("Enter discount rate (e.g., 0.1 for 10% discount): ");
-                double discountRate = scanner.nextDouble();
-                scanner.nextLine();
+                double discountRate;
+                do {
+                    System.out.print("Enter discount rate (between 0 and 1, e.g., 0.1 for 10% discount): ");
+                    String input = scanner.next().replace(",", ".");
+                    discountRate = Double.parseDouble(input);
+                    if (discountRate < 0 || discountRate > 1) {
+                        System.out.println("Invalid discount rate. Please enter a value between 0 and 1.");
+                    }
+                } while (discountRate < 0 || discountRate > 1);
                 return new DiscountPricing(discountRate);
             case 3:
-                System.out.print("Enter demand factor (e.g., 1.2 for 20% price increase): ");
-                double demandFactor = scanner.nextDouble();
-                scanner.nextLine();
+                double demandFactor;
+                do {
+                    System.out.print("Enter demand factor (between 1 and 2, e.g., 1.2 for 20% price increase): ");
+                    String input = scanner.next().replace(",", ".");
+                    demandFactor = Double.parseDouble(input);
+                    if (demandFactor < 1 || demandFactor > 2) {
+                        System.out.println("Invalid demand factor. Please enter a value between 1 and 2.");
+                    }
+                } while (demandFactor < 1 || demandFactor > 2);
                 return new DynamicDemandPricing(demandFactor);
             default:
                 System.out.println("Invalid choice. Defaulting to Flat Rate Pricing.");
@@ -205,8 +225,8 @@ public class LessonService {
                 System.out.print("Enter package title: ");
                 String packageTitle = scanner.nextLine();
                 System.out.print("Enter price: ");
-                double price = scanner.nextDouble();
-                scanner.nextLine();
+                String input = scanner.next().replace(",", ".");
+                double price = Double.parseDouble(input);
                 LessonPackage lessonPackage = new LessonPackage(tutorName, packageTitle, price);
                 lessonPackageRepository.addPackage(lessonPackage);
                 System.out.println("Lesson package created.");
