@@ -1,13 +1,13 @@
 package com.example.lessonmanagement.service;
 
 import com.example.lessonmanagement.model.CustomizationRequest;
-import com.example.lessonmanagement.model.Lesson;
-import com.example.lessonmanagement.model.Booking;
+//import com.example.lessonmanagement.model.Lesson;
+//import com.example.lessonmanagement.model.Booking;
 import com.example.lessonmanagement.repository.LessonRepository;
 import com.example.lessonmanagement.repository.BookingRepository;
 import com.example.lessonmanagement.repository.CustomizationRequestRepository;
-import com.example.lessonmanagement.strategy.FlatRatePricing;
-import com.example.lessonmanagement.strategy.PricingStrategy;
+//import com.example.lessonmanagement.strategy.FlatRatePricing;
+//import com.example.lessonmanagement.strategy.PricingStrategy;
 import com.example.lessonmanagement.model.LessonPackage;
 import com.example.lessonmanagement.repository.LessonPackageRepository;
 

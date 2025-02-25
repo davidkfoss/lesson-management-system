@@ -1,13 +1,13 @@
 package com.example.lessonmanagement.client;
 
 import com.example.lessonmanagement.model.User;
-import com.example.lessonmanagement.model.Lesson;
+//import com.example.lessonmanagement.model.Lesson;
 import com.example.lessonmanagement.service.LessonService;
 import com.example.lessonmanagement.repository.LessonRepository;
 import com.example.lessonmanagement.repository.UserRepository;
-import com.example.lessonmanagement.factory.LessonFactory;
+//import com.example.lessonmanagement.factory.LessonFactory;
 import com.example.lessonmanagement.service.UserService;
-import com.example.lessonmanagement.observer.CustomizationObserver;
+//import com.example.lessonmanagement.observer.CustomizationObserver;
 import com.example.lessonmanagement.observer.TutorNotificationService;
 import com.example.lessonmanagement.repository.CustomizationRequestRepository;
 import com.example.lessonmanagement.repository.NotificationRepository;
