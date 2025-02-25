@@ -21,6 +21,11 @@ public class ReviewRepository {
         reviews.add(review);
     }
 
+    public void clear() {
+        reviews.clear();
+    }
+
+
     public List<Review> getReviewsByTutor(String tutorName) {
         List<Review> tutorReviews = new ArrayList<>();
         for (Review review : reviews) {
@@ -30,4 +35,6 @@ public class ReviewRepository {
         }
         return tutorReviews;
     }
+
+
 }

@@ -11,10 +11,25 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void addUser(User user) {
-        userRepository.addUser(user);
-        System.out.println("User registered: " + user.getName() + " as " + user.getRole());
+    public boolean addUser(User user) {
+        String trimmedName = user.getName().trim();
+
+        boolean userExists = userRepository.getUsers().stream()
+                .anyMatch(existingUser -> existingUser.getName().trim().equals(trimmedName));
+
+        if (userExists) {
+            System.out.println("Error: A user with the name \"" + user.getName() + "\" already exists.");
+            return false;
+        } else {
+            userRepository.addUser(user);
+            System.out.println("User registered: " + user.getName() + " as " + user.getRole());
+            return true;
+        }
     }
+
+
+
+
 
     public void viewUsers() {
         userRepository.getUsers().forEach(System.out::println);

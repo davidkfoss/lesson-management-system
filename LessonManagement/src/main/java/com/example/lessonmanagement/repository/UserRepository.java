@@ -26,6 +26,10 @@ public class UserRepository {
         return users;
     }
 
+    public void clear() {
+        users.clear();
+    }
+
     public List<User> getTutorsByStudyField(String studyField) {
         return users.stream()
                 .filter(user -> "Tutor".equalsIgnoreCase(user.getRole()) && user.getStudyFields().contains(studyField))
