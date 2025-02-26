@@ -32,7 +32,7 @@ public class UserRepository {
 
     public List<User> getTutorsByStudyField(String studyField) {
         return users.stream()
-                .filter(user -> "Tutor".equalsIgnoreCase(user.getRole()) && user.getStudyFields().contains(studyField))
+                .filter(user -> "tutor".equalsIgnoreCase(user.getRole()) && user.getStudyFields().contains(studyField))
                 .collect(Collectors.toList());
     }
 }

@@ -15,7 +15,7 @@ public class UserService {
         String trimmedName = user.getName().trim();
 
         boolean userExists = userRepository.getUsers().stream()
-                .anyMatch(existingUser -> existingUser.getName().trim().equals(trimmedName));
+                .anyMatch(existingUser -> existingUser.getName().trim().equals(trimmedName));  // Case-sensitive
 
         if (userExists) {
             System.out.println("Error: A user with the name \"" + user.getName() + "\" already exists.");
@@ -27,19 +27,23 @@ public class UserService {
         }
     }
 
-
-
-
-
     public void viewUsers() {
         userRepository.getUsers().forEach(System.out::println);
     }
 
     public boolean isTutor(String name) {
-        return userRepository.getUsers().stream().anyMatch(user -> user.getName().equalsIgnoreCase(name) && user.getRole().equals("tutor"));
+        return userRepository.getUsers().stream()
+                .anyMatch(user -> user.getName().equals(name) && user.getRole().equals("tutor"));  // Case-sensitive
     }
 
     public List<User> getTutorsByStudyField(String studyField) {
         return userRepository.getTutorsByStudyField(studyField);
+    }
+
+    public User getUserByName(String name) {
+        return userRepository.getUsers().stream()
+                .filter(u -> u.getName().trim().equals(name.trim()))  // Case-sensitive
+                .findFirst()
+                .orElse(null);
     }
 }

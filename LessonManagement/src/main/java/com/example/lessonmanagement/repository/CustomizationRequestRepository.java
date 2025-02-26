@@ -25,7 +25,7 @@ public class CustomizationRequestRepository {
     public List<CustomizationRequest> getRequestsByTutor(String tutorName) {
         List<CustomizationRequest> tutorRequests = new ArrayList<>();
         for (CustomizationRequest request : customizationRequests) {
-            if (request.getTutorName().equalsIgnoreCase(tutorName)) {
+            if (request.getTutorName().equals(tutorName)) {  // Case-sensitive match
                 tutorRequests.add(request);
             }
         }
@@ -34,8 +34,8 @@ public class CustomizationRequestRepository {
 
     public void approveRequest(String tutorName, String studentName) {
         customizationRequests.removeIf(request ->
-                request.getTutorName().equalsIgnoreCase(tutorName) &&
-                        request.getStudentName().equalsIgnoreCase(studentName));
+                request.getTutorName().equals(tutorName) &&
+                        request.getStudentName().equals(studentName));  // Case-sensitive match
         System.out.println("Customization request approved and removed.");
     }
 
@@ -45,12 +45,15 @@ public class CustomizationRequestRepository {
 
     private void notifyObservers(CustomizationRequest request) {
         for (CustomizationObserver observer : observers) {
-            observer.notifyCustomizationRequest(request.getTutorName(), request.getStudentName(), request.getRequestDetails());
+            observer.notifyCustomizationRequest(
+                    request.getTutorName(),
+                    request.getStudentName(),
+                    request.getRequestDetails()
+            );
         }
     }
 
     public void clearRequestsByTutor(String tutorName) {
-        customizationRequests.removeIf(request -> request.getTutorName().equalsIgnoreCase(tutorName));
+        customizationRequests.removeIf(request -> request.getTutorName().equals(tutorName));  // Case-sensitive match
     }
-
 }

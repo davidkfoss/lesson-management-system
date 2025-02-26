@@ -17,12 +17,15 @@ import java.util.Scanner;
 
 public class ConsoleApp {
     private static final InputService inputService = new InputService(new Scanner(System.in));
+    private static final UserService userService = new UserService(UserRepository.getInstance());
+
     private static final LessonService lessonService = new LessonService(
             LessonRepository.getInstance(),
             BookingRepository.getInstance(),
-            inputService
+            inputService,
+            userService
     );
-    private static final UserService userService = new UserService(UserRepository.getInstance());
+
     private static final CustomizationRequestRepository customizationRequestRepository =
             CustomizationRequestRepository.getInstance();
     private static final TutorNotificationService tutorNotificationService = new TutorNotificationService();

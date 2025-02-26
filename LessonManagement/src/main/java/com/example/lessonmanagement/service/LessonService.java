@@ -12,6 +12,8 @@ import com.example.lessonmanagement.strategy.PricingStrategy;
 import com.example.lessonmanagement.strategy.DiscountPricing;
 import com.example.lessonmanagement.strategy.DynamicDemandPricing;
 import com.example.lessonmanagement.strategy.FlatRatePricing;
+import com.example.lessonmanagement.model.User;
+
 
 import java.util.List;
 
@@ -21,15 +23,18 @@ public class LessonService {
     private final InputService inputService;
     private final LessonPackageRepository lessonPackageRepository = LessonPackageRepository.getInstance();
     private final CustomizationRequestRepository customizationRequestRepository = CustomizationRequestRepository.getInstance();
+    private final UserService userService;
 
     public LessonService(
             LessonRepository lessonRepository,
             BookingRepository bookingRepository,
-            InputService inputService
+            InputService inputService,
+            UserService userService
     ) {
         this.lessonRepository = lessonRepository;
         this.bookingRepository = bookingRepository;
         this.inputService = inputService;
+        this.userService = userService; // nuovo
     }
 
     public void createLesson() {
@@ -164,10 +169,26 @@ public class LessonService {
     public void requestLessonCustomization(String studentName) {
         String tutorName = inputService.readString("Enter tutor name: ");
         String requestDetails = inputService.readString("Enter customization request details: ");
+
+        // Verifica che lo studente esista e sia "student"
+        User student = userService.getUserByName(studentName);
+        if (student == null || !student.getRole().equalsIgnoreCase("student")) {
+            System.out.println("Error: The user \"" + studentName + "\" is not registered as a student.");
+            return;
+        }
+
+        // Verifica che il tutor esista e sia "tutor"
+        User tutor = userService.getUserByName(tutorName);
+        if (tutor == null || !tutor.getRole().equalsIgnoreCase("tutor")) {
+            System.out.println("Error: The user \"" + tutorName + "\" is not registered as a tutor.");
+            return;
+        }
+
         CustomizationRequest request = new CustomizationRequest(studentName, tutorName, requestDetails);
         customizationRequestRepository.addRequest(request);
         System.out.println("Customization request submitted.");
     }
+
 
     public void manageLessonPackages(String tutorName) {
         System.out.println("1. Create Package\n2. View Packages\n3. Delete Package");
