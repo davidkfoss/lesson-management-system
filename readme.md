@@ -21,6 +21,12 @@ mvn clean package
 mvn exec:java -Dexec.mainClass="com.example.lessonmanagement.client.ConsoleApp"
 ```
 
+#### In VS Code
+
+```bash
+mvn exec:java "-Dexec.mainClass=com.example.lessonmanagement.client.ConsoleApp"
+```
+
 ---
 
 ## Application Overview
